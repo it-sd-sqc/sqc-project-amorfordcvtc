@@ -14,61 +14,29 @@ file.
 ***********************************************************/
 
 // Dependencies ////////////////////////////////////////////
-//import { strict as assert } from 'node:assert'
-//import { closeSync, openSync, readFileSync, writeFileSync }
-//  from 'node:fs'
-
-//import { parse } from 'node-html-parser'
+import { strict as assert } from 'node:assert'
+import { closeSync, openSync, readFileSync, writeFileSync }
+  from 'node:fs'
+import { parse } from 'node-html-parser'
 
 // This module uses the CommonJS module format, so we need
 // to import it differently.
-
-//import pkg from 'svgoban'
-
-const pkg = require('svgoban');
-const assert = require('assert').strict;
-const fs = require('fs');
-const parse = require('node-html-parser').parse;
-
-const htmlContent = fs.readFileSync('../data/TheGameofLogic.html', 'utf8');
-
-const root = parse(htmlContent);
-const chapterTitleNodes = root.querySelectorAll('h3[align="center"]');
-const chapterTitles = chapterTitleNodes.map(elem => elem.text).filter(Boolean);
-
-// Extract content for each chapter
-const chapterContents = chapterTitleNodes.map(titleNode => {
-  const content = [];
-  let node = titleNode.nextSibling;
-  while (node && (!node.tagName || (node.tagName.toLowerCase() !== 'h3' && node.getAttribute('align') !== 'center'))) {
-    content.push(node.rawText.trim());
-    node = node.nextSibling;
-  }
-  return content.join('\n').trim();
-});
-
-console.log("Chapter Titles:", chapterTitles);
-
-// Further processing and SQL generation
-// ...
-
-const { serialize } = pkg;
+import pkg from 'svgoban'
+const { serialize } = pkg
 
 // Configuration ///////////////////////////////////////////
-const srcPath = '../data/TheGameofLogic.html';
-const dstPath = 'docs/generated-schema.sql';
+const srcPath = 'data/book.html'
+const dstPath = 'docs/generated-schema.sql'
 const chapterIds = [
-  'introduction',
-  'ch1',
-  'ch2',
-  'ch3',
-  'ch4',
-  'ch5',
-  'ch6',
-  'ch7'
-];
+  'chap01',
+  'chap02',
+  'chap03',
+  'chap04',
+  'chap05',
+  'chap06'
+]
 
-const problemChapterId = 'ch8';
+const problemChapterId = 'ch8'
 
 const sqlHeader = `DROP TABLE IF EXISTS chapters;
 DROP TABLE IF EXISTS problem_types;
@@ -95,13 +63,13 @@ CREATE TABLE problems (
 );
 
 INSERT INTO chapters (title, body) VALUES
-`;
+`
 
 const insertProblemTypesSql = `INSERT INTO problem_types (name) VALUES
-`;
+`
 
 const insertProblemsSql = `INSERT INTO problems (problem_type_id,  number, to_play, problem, solutions) VALUES
-`;
+`
 
 const gobanConfig = {
   size: 19,
@@ -113,8 +81,6 @@ const gobanConfig = {
 
 // Utility functions ///////////////////////////////////////
 const extractTitle = function (root, id) {
-
-
   const title = root.querySelector(`#${id} .main`).text
   return title
 }
@@ -187,7 +153,7 @@ const addSolution = function (problem, solutionSrc) {
 }
 
 // Conversion //////////////////////////////////////////////
-const src = fs.readFileSync(srcPath, 'utf8')
+const src = readFileSync(srcPath, 'utf8')
 const domRoot = parse(src)
 
 // Remove pageNum nodes
@@ -289,8 +255,8 @@ chapters.push({
 })
 
 // Output the data as SQL.
-const fd = fs.openSync(dstPath, 'w')
-fs.writeFileSync(fd, sqlHeader)
+const fd = openSync(dstPath, 'w')
+writeFileSync(fd, sqlHeader)
 writeFileSync(fd, `('${chapters[0].title}', '${chapters[0].body}')`)
 chapters.slice(1).forEach((data) => {
   const value = `,\n('${data.title}', '${data.body}')`
