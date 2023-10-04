@@ -5,7 +5,7 @@ import { parse } from 'node-html-parser';
 
 // Configuration ///////////////////////////////////////////
 const srcPath = '../data/TheGameofLogic.html';
-const dstPath = './docs/generated-schema.sql';
+const dstPath = '../docs/generated-schema.sql';
 const sqlHeader = `DROP TABLE IF EXISTS chapters;
 DROP TABLE IF EXISTS problem_types;
 DROP TABLE IF EXISTS problems;
