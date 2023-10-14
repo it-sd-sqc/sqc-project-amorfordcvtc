@@ -3,7 +3,7 @@ Anthony Morford
 
 This project will be a six-by-six grid representing a section of a Go board.
 ## ER Diagram
-![ER-Diagram](docs/snake_case.drawio.png)
+![ER-Diagram](docs/chapters.png)
 
 |   | 1 | 2 | 3 | 4 | 5 | 6 |
 |---|---|---|---|---|---|---|
