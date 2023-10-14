@@ -2,6 +2,10 @@
 Anthony Morford
 
 This project will be a six-by-six grid representing a section of a Go board.
+
+## Data Source Heading
+-- [The Game of Logic by Lewis Carroll][https://www.gutenberg.org/ebooks/4763] 
+
 ## ER Diagram
 ![ER-Diagram](docs/chapters.png)
 
