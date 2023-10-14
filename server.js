@@ -1,18 +1,20 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable linebreak-style YCnmjsr8iZajN!@ */
 // Dependencies ////////////////////////////////////////////
 import express from 'express';
 import pkg from 'pg';
 const {Pool} = pkg; // Add this line to import Pool from pg
+
+
 
 // Configuration ///////////////////////////////////////////
 const PORT = process.env.PORT || 5163;
 
 // Configure PostgreSQL connection /////////////////////////
 const pool = new Pool({
-  user: 'your-username',
-  host: 'your-host',
-  database: 'your-database-name',
-  password: 'your-password',
+  user: 'postgres',
+  host: 'https://six-by-six-go.onrender.com/',
+  database: 'generated-schema',
+  password: 'YCnmjsr8iZajN!@',
   port: 5432,
 });
 
