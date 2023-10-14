@@ -1,7 +1,11 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
 // Dependencies ////////////////////////////////////////////
-import { strict as assert } from 'node:assert';
-import { closeSync, openSync, readFileSync, writeFileSync } from 'node:fs';
-import { parse } from 'node-html-parser';
+import {strict as assert} from 'node:assert';
+import {closeSync, openSync, readFileSync, writeFileSync} from 'node:fs';
+import {parse} from 'node-html-parser';
 
 // Configuration ///////////////////////////////////////////
 const srcPath = '../data/TheGameofLogic.html';
@@ -31,9 +35,9 @@ CREATE TABLE problems (
 );
 
 INSERT INTO chapters (title, body) VALUES
-`
+`;
 // Utility functions ///////////////////////////////////////
-const extractChapter = function (root, id) {
+const extractChapter = function(root, id) {
   const titleNode = root.querySelector(`a[name="${id}"] + h3 + h3`);
   if (!titleNode) return null;
 
@@ -49,18 +53,18 @@ const extractChapter = function (root, id) {
 
   return {
     title,
-    body: content
+    body: content,
   };
 };
 
-const escapeForSQL = (str) => str.replace(/'/g, "''");
+const escapeForSQL = (str) => str.replace(/'/g, '\'\'');
 // Conversion //////////////////////////////////////////////
 
 const src = readFileSync(srcPath, 'utf8');
 const domRoot = parse(src);
 
 const chapters = [];
-const chapterNames = ['chap01', 'chap02', 'chap03', 'chap04', 'chap05', 'chap06'];  // Add more if needed
+const chapterNames = ['chap01', 'chap02', 'chap03', 'chap04', 'chap05', 'chap06']; // Add more if needed
 
 chapterNames.forEach((id) => {
   const chapter = extractChapter(domRoot, id);
